@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BlockObj : MonoBehaviour
 {
+    public bool canBeDestroyed = true;
     public float startTime, secondsAlive = 0;
     public int secondsLiving, min, max;
     public SpriteRenderer spr;
@@ -23,14 +24,17 @@ public class BlockObj : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        secondsAlive += Time.deltaTime;
-
-        if(secondsAlive >= secondsLiving)//Destroy block
+        if(canBeDestroyed)
         {
-            Destroy(gameObject);
-        }
+            secondsAlive += Time.deltaTime * (GameManager.Instance.isRewinding ? 2 : 1);
 
-        float alpha = 1 - (secondsAlive / secondsLiving);
-        spr.color = new Color(spr.color.r, spr.color.g, spr.color.b, alpha);
+            if(secondsAlive >= secondsLiving)//Destroy block
+            {
+                Destroy(gameObject);
+            }
+
+            float alpha = 1 - (secondsAlive / secondsLiving);
+            spr.color = new Color(spr.color.r, spr.color.g, spr.color.b, alpha);
+        }
     }
 }

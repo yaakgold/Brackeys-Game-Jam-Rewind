@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - CameraPos
+  - Ground
+  - Enemy
+  - Projectile
+  - Wall
+  - FlyProj
   layers:
   - Default
   - TransparentFX
@@ -14,14 +19,14 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Projectile
+  - Player
+  - Enemy
+  - FlyProj
+  - Fly
+  - Ground
+  - BottomWall
+  - RegularWall
   - 
   - 
   - 
