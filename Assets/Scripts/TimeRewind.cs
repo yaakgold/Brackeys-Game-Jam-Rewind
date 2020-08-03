@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class TimeRewind : MonoBehaviour
@@ -7,7 +8,7 @@ public class TimeRewind : MonoBehaviour
     public bool canRecordTime = true;
     public List<TimeStamp> timeList = new List<TimeStamp>();
 
-    public bool isRewinding = false, startRewind = false;
+    public bool isRewinding = false, startRewind = false, isSpider;
     public float timeToRewind = 2;
 
     public float startTime;
@@ -31,7 +32,10 @@ public class TimeRewind : MonoBehaviour
         }
         if(canRecordTime && !isRewinding)
         {
-            timeList.Add(new TimeStamp(transform.position, Time.time, transform.localScale));
+            if(isSpider)
+                timeList.Add(new TimeStamp(transform.position, Time.time, transform.localScale, transform.eulerAngles, GetComponent<Enemy>().index, GetComponent<Enemy>().nextIndex));
+            else
+                timeList.Add(new TimeStamp(transform.position, Time.time, transform.localScale, transform.eulerAngles));
         }
         if(startRewind || (GameManager.Instance.isRewinding && !hasStarted))
         {
@@ -50,11 +54,18 @@ public class TimeRewind : MonoBehaviour
             if (index != 0 && startTime + (Time.deltaTime) < timeToRewind)
             {
                 transform.position = timeList[index].position;
+                transform.eulerAngles = timeList[index].rotation;
                 transform.localScale = timeList[index].scale;
+
+                if(isSpider)
+                {
+                    GetComponent<Enemy>().index = timeList[index].spiderIndex;
+                    GetComponent<Enemy>().nextIndex = timeList[index].spiderNextIndex;
+                }
+
                 startTime += Time.deltaTime;
                 timeList.RemoveAt(index);
                 index--;
-                Debug.Log(index);
             }
             else if(startTime < timeToRewind + GameManager.Instance.waitTime)
             {
@@ -83,12 +94,20 @@ public class TimeStamp
 {
     public float startTime;
     public Vector3 position;
+    public Vector3 rotation;
     public Vector3 scale;
 
-    public TimeStamp(Vector3 pos, float time, Vector3 s)
+    public int spiderIndex;
+    public int spiderNextIndex;
+
+    public TimeStamp(Vector3 pos, float time, Vector3 s, Vector3 rot, [Optional] int spiderI, [Optional] int spiderNextI)
     {
         position = pos;
         startTime = time;
         scale = s;
+        rotation = rot;
+
+        spiderIndex = spiderI;
+        spiderNextIndex = spiderNextI;
     }
 }

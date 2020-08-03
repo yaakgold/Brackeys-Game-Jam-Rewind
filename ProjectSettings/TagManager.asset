@@ -10,6 +10,8 @@ TagManager:
   - Projectile
   - Wall
   - FlyProj
+  - BottomWall
+  - PlayerSpawn
   layers:
   - Default
   - TransparentFX

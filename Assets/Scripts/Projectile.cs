@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    public float speed, damage, rotateAmount = 90f;
+    public float speed, damage, rotateAmount;
     public bool isEnemy;
 
     // Start is called before the first frame update
@@ -12,12 +12,27 @@ public class Projectile : MonoBehaviour
     {
         if(!isEnemy)
         {
-            GetComponent<Rigidbody2D>().AddForce(Quaternion.Euler(0, 0, rotateAmount) * ((transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition)).normalized * -speed));
             GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterMovement>().ammoCount--;
+
+            Vector2 target = Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
+            Vector2 myPos = new Vector2(transform.position.x, transform.position.y);
+            Vector2 direction = target - myPos;
+            direction.Normalize();
+            Quaternion rotation = Quaternion.Euler(0, 0, (Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg) + 90);
+            transform.rotation = rotation;
+
+            GetComponent<Rigidbody2D>().velocity = direction * 10;
         }
         else
         {
-            GetComponent<Rigidbody2D>().AddForce(Quaternion.Euler(0, 0, rotateAmount) * ((transform.position - GameObject.FindGameObjectWithTag("Player").transform.position).normalized * -speed));
+            Vector2 target = new Vector2(GameObject.FindGameObjectWithTag("Player").transform.position.x, GameObject.FindGameObjectWithTag("Player").transform.position.y);
+            Vector2 myPos = new Vector2(transform.position.x, transform.position.y);
+            Vector2 direction = target - myPos;
+            direction.Normalize();
+            Quaternion rotation = Quaternion.Euler(0, 0, (Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg) + 90);
+            transform.rotation = rotation;
+
+            GetComponent<Rigidbody2D>().velocity = direction * 10;
         }
     }
 

@@ -1,21 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public bool isRewinding = false;
     public bool isPaused;
-    public SpriteRenderer rewindVisual;
+    public Image rewindVisual;
     public float waitTime = 2;
     public GameObject enemyProj;
+    public GameObject player;
 
     public static GameManager _instance;
     public static GameManager Instance { get { return _instance; } }
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
         if (_instance != null && _instance != this)
         {
             Destroy(this.gameObject);

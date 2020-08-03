@@ -20,6 +20,7 @@ public abstract class PowerUp : MonoBehaviour
             CharacterMovement cm = collision.gameObject.GetComponent<CharacterMovement>();
             cm.ammoCount = (cm.ammoCount + ammoInc > cm.maxAmmo) ? cm.maxAmmo : cm.ammoCount + ammoInc;
             UsePower(collision);
+            UIManager.Instance.changeAmmoCount(cm.ammoCount);
         }
     }
 }

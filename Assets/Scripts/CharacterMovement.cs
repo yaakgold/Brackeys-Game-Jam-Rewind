@@ -39,6 +39,7 @@ public class CharacterMovement : MonoBehaviour
                 {
                     Instantiate(projectile, transform.position, Quaternion.identity);
                     currentWeaponCooldown = weaponCooldown;
+                    UIManager.Instance.changeAmmoCount(ammoCount);
                 }
             }
             else
@@ -54,27 +55,31 @@ public class CharacterMovement : MonoBehaviour
         ShieldObj[] shields = shieldHolder.GetComponentsInChildren<ShieldObj>();
 
         int index = 0;
-        float dist = .5f, speed = 4;
+        float dist = .5f, shieldSpeed = 4;
         foreach (ShieldObj shield in shields)
         {
+            shield.transform.rotation = Quaternion.identity;
             switch (index)
             {
+                case 0:
+                    shield.transform.RotateAround(transform.position, shield.axis, 180);
+                    break;
                 case 1:
                     dist *= -1;
                     break;
                 case 2:
-                    dist *= 2;
-                    speed *= -1;
+                    dist *= 1.5f;
+                    shieldSpeed *= -1;
                     break;
                 case 3:
+                    shield.transform.RotateAround(transform.position, shield.axis, 180);
                     dist *= -1;
                     break;
                 default:
                     break;
             }
             shield.distance = dist;
-            shield.speed = speed;
-            shield.transform.rotation = Quaternion.identity;
+            shield.speed = shieldSpeed;
             shield.Setup();
             index++;
         }
@@ -92,9 +97,14 @@ public class CharacterMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("FlyProj") || collision.gameObject.CompareTag("Enemy"))
+        if(collision.gameObject.CompareTag("FlyProj") || (collision.gameObject.CompareTag("Enemy") && (!collision.gameObject.GetComponent<Enemy>().isStunned || collision.gameObject.GetComponent<Enemy>().canFly)))
         {
             gameObject.GetComponent<TimeRewind>().startRewind = true;
+        }
+        else if(collision.gameObject.CompareTag("BottomWall"))
+        {
+            GameObject.FindGameObjectWithTag("PlayerSpawn").GetComponent<PlayerSpawn>().SpawnPlayer();
+            Destroy(gameObject);
         }
     }
 }

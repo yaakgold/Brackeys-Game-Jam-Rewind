@@ -6,9 +6,9 @@ public class Enemy : MonoBehaviour
 {
     public bool isDeadly = false;
     public float health, speed;
-    public GameObject leftGC, rightGC;
+    public GameObject leftGC, rightGC, frontGC;
     public Vector3 flipScale;
-    public bool canFly;
+    public bool canFly, canCrawl;
     public float flyxSpeed = 4, flyySpeed = 2;
 
     private float startTime = 0, endTime = 0;
@@ -18,12 +18,106 @@ public class Enemy : MonoBehaviour
     private float startStun = 0, endStun = 3;
     public bool isStunned = false;
 
+    public Vector3[] movementVects;
+    public Vector3 startVect;
+    public bool canStartRot = true, canRot = false, hitF = false, isFalling = false;
+    public int index, nextIndex;
+    public float fallSpeed = 1;
+
+    private void Start()
+    {
+        endProj = 100;
+        movementVects = new[] { new Vector3(0, 0), new Vector3(1, 0), new Vector3(0, -1), new Vector3(-1, 0), new Vector3(0, 1) };
+        index = 1;
+    }
+
+    public int NextIndex(int ind)
+    {
+        int i = ind;
+
+        i++;
+        if (i >= movementVects.Length)
+            i = 1;
+        //Debug.Log(i);
+        return i;
+    }
+
+    public int PrevIndex(int ind)
+    {
+        int i = ind;
+
+        i--;
+        if (i < 1)
+            i = 4;
+        Debug.Log(i);
+        return i;
+    }
+
     private void Update()
     {
         //Movement
         if (!GameManager.Instance.isRewinding && !isStunned)
         {
-            if (!canFly)
+            if (canCrawl) //Spider
+            {
+                if (!isFalling)
+                {
+                    RaycastHit2D hitL = Physics2D.Raycast(leftGC.transform.position, Quaternion.Euler(transform.rotation.eulerAngles) * Vector3.down, .1f);
+                    RaycastHit2D hitR = Physics2D.Raycast(rightGC.transform.position, Quaternion.Euler(transform.rotation.eulerAngles) * Vector3.down, .1f);
+
+                    if (hitF)
+                    {
+                        startVect = transform.rotation.eulerAngles;
+                        startVect.z += 90f;
+                        transform.eulerAngles = startVect;
+                        hitF = false;
+                        nextIndex = index;
+                        index = PrevIndex(index);
+                    }
+
+                    if (!hitL && canStartRot && !hitR) //Start rotating
+                    {
+                        canRot = true;
+                        canStartRot = false;
+                        startVect = transform.rotation.eulerAngles;
+                        startVect.z -= 90;
+                        nextIndex = index;
+                        index = 0;
+                    }
+
+                    if (canRot) //Rotate
+                    {
+                        transform.eulerAngles = startVect;
+                        canRot = false;
+                        index = NextIndex(nextIndex);
+                    }
+
+                    if (hitR && !canStartRot && !canRot) //End rotation
+                    {
+                        canStartRot = true;
+                    }
+
+                }
+                else
+                {
+                    index = 2;
+                    fallSpeed = 3;
+                }
+
+                transform.position += movementVects[index] * speed * Time.deltaTime * fallSpeed;
+
+                if (startProj < endProj)
+                {
+                    startProj += Time.deltaTime;
+                }
+                else
+                {
+                    startProj = 0;
+                    endProj = Random.Range(1f, 3f);
+                    Instantiate(GameManager.Instance.enemyProj, transform.position, Quaternion.identity);
+                }
+            }
+            else if (!canFly) //Ant
             {
                 transform.position = new Vector3(transform.position.x + speed * Time.deltaTime, transform.position.y);
                 RaycastHit2D hitL = Physics2D.Raycast(leftGC.transform.position, Vector3.down, 1);
@@ -37,7 +131,7 @@ public class Enemy : MonoBehaviour
                     transform.localScale = flipScale;
                 }
             }
-            else
+            else //Fly
             {
                 if (startTime < endTime)
                 {
@@ -115,6 +209,17 @@ public class Enemy : MonoBehaviour
             speed *= -1;
             movex *= -1;
             movey *= -1;
+        }
+
+        if(isFalling && collision.transform.CompareTag("Ground"))
+        {
+            isFalling = false;
+            index = 1;
+            startVect.z = 0;
+            transform.eulerAngles = startVect;
+            fallSpeed = 1;
+            canStartRot = true;
+            canRot = false;
         }
     }
 }
