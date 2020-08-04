@@ -13,6 +13,9 @@ public class UIManager : MonoBehaviour
     public int livesLeft = 3;
     public List<Sprite> pixleNumbers = new List<Sprite>();
     public CharacterMovement player;
+    public Transform background;
+    public Vector3 backPos;
+    public float startx, endx;
 
     public static UIManager _instance;
     public static UIManager Instance { get { return _instance; } }
@@ -32,15 +35,24 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        background = GameObject.FindGameObjectWithTag("Background").transform;
+        backPos = new Vector3(0, 0, 100);
+        startx = GameObject.FindGameObjectWithTag("PlayerSpawn").transform.position.x;
+        endx = GameObject.FindGameObjectWithTag("LevelEnd").transform.position.x;
         //player = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterMovement>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!player)
+        if (!player)
         {
             GameObject.FindGameObjectWithTag("Player").TryGetComponent<CharacterMovement>(out player);
+        }
+        else
+        {
+            backPos.x = (player.transform.position.x/ (endx-startx)) * 5;
+            background.localPosition = backPos;
         }
     }
 

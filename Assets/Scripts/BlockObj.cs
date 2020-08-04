@@ -52,12 +52,7 @@ public class BlockObj : MonoBehaviour
             secondsAlive += Time.deltaTime * (GameManager.Instance.isRewinding ? 2 : 1);
 
             if (secondsAlive >= secondsLiving)//Destroy block
-            {
-                foreach (Collider2D obj in Physics2D.OverlapCircleAll(transform.position, 1, LayerMask.GetMask("Enemy")))
-                {
-                    obj.GetComponent<Enemy>().isFalling = true;
-                }
-
+            { 
                 Destroy(gameObject);
             }
             image1.sprite = UIManager.Instance.pixleNumbers[Mathf.Max(Mathf.FloorToInt((secondsLiving - secondsAlive) / 10), 0)];

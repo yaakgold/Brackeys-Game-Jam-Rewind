@@ -24,9 +24,10 @@ public class Enemy : MonoBehaviour
     public int index, nextIndex;
     public float fallSpeed = 1;
 
+    public Color pColor;
+
     private void Start()
     {
-        endProj = 100;
         movementVects = new[] { new Vector3(0, 0), new Vector3(1, 0), new Vector3(0, -1), new Vector3(-1, 0), new Vector3(0, 1) };
         index = 1;
     }
@@ -97,6 +98,12 @@ public class Enemy : MonoBehaviour
                         canStartRot = true;
                     }
 
+
+                    if(Physics2D.OverlapCircleAll(transform.position, .5f, LayerMask.GetMask("Ground")).Length == 0)
+                    {
+                        isFalling = true;
+                    }
+
                 }
                 else
                 {
@@ -114,7 +121,9 @@ public class Enemy : MonoBehaviour
                 {
                     startProj = 0;
                     endProj = Random.Range(1f, 3f);
-                    Instantiate(GameManager.Instance.enemyProj, transform.position, Quaternion.identity);
+                    Projectile p = Instantiate(GameManager.Instance.enemyProj, transform.position, Quaternion.identity).GetComponent<Projectile>();
+                    p.isWebbing = true;
+                    p.GetComponent<SpriteRenderer>().color = pColor;
                 }
             }
             else if (!canFly) //Ant
@@ -164,7 +173,12 @@ public class Enemy : MonoBehaviour
 
         if(isStunned)
         {
+            if(!canCrawl)
             GetComponent<Animator>().SetBool("pause", true);
+            else
+            {
+                GetComponentInChildren<Animator>().SetBool("pause", true);
+            }
             if(!GameManager.Instance.isRewinding)
                 GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
             GetComponent<Rigidbody2D>().velocity = Vector2.zero;
@@ -181,7 +195,12 @@ public class Enemy : MonoBehaviour
         else
         {
             GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
-            GetComponent<Animator>().SetBool("pause", false);
+            if (!canCrawl)
+                GetComponent<Animator>().SetBool("pause", false);
+            else
+            {
+                GetComponentInChildren<Animator>().SetBool("pause", false);
+            }
         }
     }
 
@@ -209,6 +228,11 @@ public class Enemy : MonoBehaviour
             speed *= -1;
             movex *= -1;
             movey *= -1;
+        }
+
+        if(collision.transform.CompareTag("BottomWall"))
+        {
+            Destroy(gameObject);
         }
 
         if(isFalling && collision.transform.CompareTag("Ground"))

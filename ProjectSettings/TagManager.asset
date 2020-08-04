@@ -12,6 +12,9 @@ TagManager:
   - FlyProj
   - BottomWall
   - PlayerSpawn
+  - FireTrap
+  - LevelEnd
+  - Background
   layers:
   - Default
   - TransparentFX
@@ -29,7 +32,7 @@ TagManager:
   - Ground
   - BottomWall
   - RegularWall
-  - 
+  - FireTrap
   - 
   - 
   - 

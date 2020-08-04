@@ -14,7 +14,8 @@ public class ShotGun : PowerUp
         coll = col;
         col.gameObject.GetComponent<CharacterMovement>().weaponCooldown = speed;
         col.gameObject.GetComponent<CharacterMovement>().projectile = projectile;
-        col.gameObject.GetComponent<CharacterMovement>().minAmmoNeed = 3;
+        col.gameObject.GetComponent<CharacterMovement>().minAmmoNeed = 2;
+        col.gameObject.GetComponent<CharacterMovement>().currentPowerUp = this;
         
     }
 
@@ -22,7 +23,7 @@ public class ShotGun : PowerUp
     {
         coll.gameObject.GetComponent<CharacterMovement>().weaponCooldown = coll.gameObject.GetComponent<CharacterMovement>().defaultWeaponCooldown;
         coll.gameObject.GetComponent<CharacterMovement>().projectile = defaultProj;
-        coll.gameObject.GetComponent<CharacterMovement>().minAmmoNeed = 1;
+        coll.gameObject.GetComponent<CharacterMovement>().minAmmoNeed = 0;
         Destroy(gameObject);
     }
 

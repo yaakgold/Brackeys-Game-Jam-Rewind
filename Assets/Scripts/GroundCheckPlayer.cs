@@ -6,7 +6,7 @@ public class GroundCheckPlayer : MonoBehaviour
 {
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.transform.CompareTag("Ground"))
+        if (collision.transform.CompareTag("Ground") || collision.transform.CompareTag("Enemy"))
         {
             GetComponentInParent<CharacterMovement>().isGrounded = true;
         }
@@ -14,7 +14,7 @@ public class GroundCheckPlayer : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.transform.CompareTag("Ground"))
+        if (collision.transform.CompareTag("Ground") || collision.transform.CompareTag("Enemy"))
         {
             GetComponentInParent<CharacterMovement>().isGrounded = false;
         }

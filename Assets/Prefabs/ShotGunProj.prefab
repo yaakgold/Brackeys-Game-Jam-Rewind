@@ -40,6 +40,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3184807631198794066}
     m_Modifications:
+    - target: {fileID: -1338477089183660713, guid: 60bc277232226f44ca87cf8cf6fc7c2e,
+        type: 3}
+      propertyPath: rotateAmount
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4527918594488238986, guid: 60bc277232226f44ca87cf8cf6fc7c2e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -118,7 +123,12 @@ PrefabInstance:
     - target: {fileID: -1338477089183660713, guid: 60bc277232226f44ca87cf8cf6fc7c2e,
         type: 3}
       propertyPath: rotateAmount
-      value: 15
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1338477089183660713, guid: 60bc277232226f44ca87cf8cf6fc7c2e,
+        type: 3}
+      propertyPath: isEnemy
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4527918594488238986, guid: 60bc277232226f44ca87cf8cf6fc7c2e,
         type: 3}
@@ -198,7 +208,7 @@ PrefabInstance:
     - target: {fileID: -1338477089183660713, guid: 60bc277232226f44ca87cf8cf6fc7c2e,
         type: 3}
       propertyPath: rotateAmount
-      value: -15
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 4527918594488238986, guid: 60bc277232226f44ca87cf8cf6fc7c2e,
         type: 3}

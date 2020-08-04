@@ -5,15 +5,13 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     public float speed, damage, rotateAmount;
-    public bool isEnemy;
+    public bool isEnemy, isWebbing;
 
     // Start is called before the first frame update
     void Start()
     {
         if(!isEnemy)
         {
-            GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterMovement>().ammoCount--;
-
             Vector2 target = Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
             Vector2 myPos = new Vector2(transform.position.x, transform.position.y);
             Vector2 direction = target - myPos;

@@ -7,8 +7,8 @@ public class GameManager : MonoBehaviour
 {
     public bool isRewinding = false;
     public bool isPaused;
-    public Image rewindVisual;
-    public float waitTime = 2;
+    public Image rewindVisual, timeVis;
+    public float waitTime = 2, timer;
     public GameObject enemyProj;
     public GameObject player;
 
@@ -40,16 +40,24 @@ public class GameManager : MonoBehaviour
             rewindVisual.enabled = true;
             if (!isPaused)
             {
-                rewindVisual.color = rewindVisual.color = new Color(1, 0, 0, .5f);
+                //rewindVisual.color = rewindVisual.color = new Color(1, 0, 0, .5f);
+                //rewindVisual.transform.Rotate(new Vector3(0, 0, -1), 2);
             }
             else
             {
-                rewindVisual.color = new Color(0, 0, 1, .5f);
+                //rewindVisual.color = new Color(0, 0, 1, .5f);
+                timeVis.enabled = true;
+                timeVis.sprite = UIManager.Instance.pixleNumbers[Mathf.Max(Mathf.CeilToInt(timer), 0)];
+                timer -= Time.deltaTime;
             }
+            rewindVisual.transform.Rotate(new Vector3(0, 0, -1), 2);
         }
         else
         {
+            rewindVisual.transform.eulerAngles *= 0;
             rewindVisual.enabled = false;
+            timeVis.enabled = false;
+            timer = waitTime;
         }
     }
 }

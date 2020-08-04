@@ -120,7 +120,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4137751285182860937}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: ee91e105bf285524984641b9fbaa243f, type: 2}
   m_CullingMode: 0
@@ -180,9 +180,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d114f7bb92a45f449ba5af45043d8f4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentPowerUp: {fileID: 0}
   maxAmmo: 20
   ammoCount: 0
-  minAmmoNeed: 1
+  minAmmoNeed: 0
   horSpeed: 5
   jumpSpeed: 400
   rb: {fileID: 4137751286200670302}
@@ -191,9 +192,17 @@ MonoBehaviour:
     type: 3}
   shieldHolder: {fileID: 3336121214795304337}
   isGrounded: 0
+  isStunned: 0
   defaultWeaponCooldown: 0
   weaponCooldown: 0.25
   currentWeaponCooldown: 0
+  stunnedCooldown: 2
+  currentSCooldown: 0
+  whiteCooldown: 2
+  currentWhiteCooldown: 0
+  anim: {fileID: 0}
+  facing: 1
+  stunColor: {r: 0.8235294, g: 0.6, b: 1, a: 1}
 --- !u!61 &4137751286200670301
 BoxCollider2D:
   m_ObjectHideFlags: 0
