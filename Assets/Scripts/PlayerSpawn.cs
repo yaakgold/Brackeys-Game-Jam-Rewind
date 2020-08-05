@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class PlayerSpawn : MonoBehaviour
 {
+    public bool isHome = false;
     // Start is called before the first frame update
     void Start()
     {
         GameObject player = Instantiate(GameManager.Instance.player, transform.position, Quaternion.identity);
+        player.GetComponent<CharacterMovement>().hasInfAmmo = isHome;
         GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MainCamera>().player = player;
     }
 
@@ -20,6 +22,7 @@ public class PlayerSpawn : MonoBehaviour
     public void SpawnPlayer()
     {
         GameObject player = Instantiate(GameManager.Instance.player, transform.position, Quaternion.identity);
+        player.GetComponent<CharacterMovement>().hasInfAmmo = isHome;
         GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MainCamera>().player = player;
         UIManager.Instance.LoseLife();
     }

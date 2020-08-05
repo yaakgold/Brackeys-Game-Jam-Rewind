@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public float waitTime = 2, timer;
     public GameObject enemyProj;
     public GameObject player;
+    public int numShields = 0, ammoCount = -1;
 
     public static GameManager _instance;
     public static GameManager Instance { get { return _instance; } }

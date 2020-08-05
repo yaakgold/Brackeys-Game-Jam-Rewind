@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    public float speed, damage, rotateAmount;
+    public float speed, damage, rotateAmount, timeAlive, timeTillDeath;
     public bool isEnemy, isWebbing;
 
     // Start is called before the first frame update
@@ -37,7 +37,19 @@ public class Projectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(timeAlive >= timeTillDeath)
+        {
+            DestroyProjectile();
+        }
+        else
+        {
+            timeAlive += Time.deltaTime;
+        }
+    }
+
+    public void DestroyProjectile()
+    {
+        Destroy(gameObject);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -47,6 +59,6 @@ public class Projectile : MonoBehaviour
             collision.gameObject.GetComponent<Enemy>().TakeDamage(damage);
         }
 
-        Destroy(gameObject);
+        DestroyProjectile();
     }
 }

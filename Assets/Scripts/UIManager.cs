@@ -14,8 +14,12 @@ public class UIManager : MonoBehaviour
     public List<Sprite> pixleNumbers = new List<Sprite>();
     public CharacterMovement player;
     public Transform background;
+    public float backy = 0;
+    public float backMove = 5;
     public Vector3 backPos;
     public float startx, endx;
+
+    public bool hasLife, hasAmmo, hasScore, hasBack;
 
     public static UIManager _instance;
     public static UIManager Instance { get { return _instance; } }
@@ -35,11 +39,18 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        background = GameObject.FindGameObjectWithTag("Background").transform;
-        backPos = new Vector3(0, 0, 100);
-        startx = GameObject.FindGameObjectWithTag("PlayerSpawn").transform.position.x;
-        endx = GameObject.FindGameObjectWithTag("LevelEnd").transform.position.x;
+        hasBack = !!GameObject.FindGameObjectWithTag("Background");
+        if (hasBack)
+        {
+            background = GameObject.FindGameObjectWithTag("Background").transform;
+            backPos = new Vector3(0, backy, 100);
+            startx = GameObject.FindGameObjectWithTag("PlayerSpawn").transform.position.x;
+            endx = GameObject.FindGameObjectWithTag("LevelEnd").transform.position.x;
+        }
         //player = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterMovement>();
+        hasLife = !!lifeCounter;
+        hasScore = !!score;
+        hasAmmo = !!ammoCount;
     }
 
     // Update is called once per frame
@@ -49,9 +60,9 @@ public class UIManager : MonoBehaviour
         {
             GameObject.FindGameObjectWithTag("Player").TryGetComponent<CharacterMovement>(out player);
         }
-        else
+        else if(hasBack)
         {
-            backPos.x = (player.transform.position.x/ (endx-startx)) * 5;
+            backPos.x = (player.transform.position.x/ (endx-startx)) * backMove;
             background.localPosition = backPos;
         }
     }
@@ -61,7 +72,10 @@ public class UIManager : MonoBehaviour
         livesLeft--;
         if(livesLeft!=0)
         {
-            lifeCounter.GetComponentsInChildren<Image>()[livesLeft].enabled = false;
+            if (hasLife)
+                lifeCounter.GetComponentsInChildren<Image>()[livesLeft].enabled = false;
+            else
+                Debug.Log("GET LIFECOUNTER COMPONENT");
         }
         else
         {
@@ -71,17 +85,26 @@ public class UIManager : MonoBehaviour
 
     public void changeAmmoCount(int ammo)
     {
-        Image[] tempAmmo = ammoCount.GetComponentsInChildren<Image>();
-        tempAmmo[0].sprite = pixleNumbers[ammo / 10];
-        tempAmmo[1].sprite = pixleNumbers[ammo % 10];
+        if (hasAmmo)
+        {
+            Image[] tempAmmo = ammoCount.GetComponentsInChildren<Image>();
+            tempAmmo[0].sprite = pixleNumbers[ammo / 10];
+            tempAmmo[1].sprite = pixleNumbers[ammo % 10];
+        }
+        else
+            Debug.Log("GET AMMOCOUNTER COMPONENT");
     }
 
     public void changeScore(int s)
     {
-        Image[] tempScore = score.GetComponentsInChildren<Image>();
-        tempScore[0].sprite = pixleNumbers[s / 100];
-        tempScore[1].sprite = pixleNumbers[s / 10];
-        tempScore[2].sprite = pixleNumbers[s % 10];
-
+        if (hasScore)
+        {
+            Image[] tempScore = score.GetComponentsInChildren<Image>();
+            tempScore[0].sprite = pixleNumbers[s / 100];
+            tempScore[1].sprite = pixleNumbers[s / 10];
+            tempScore[2].sprite = pixleNumbers[s % 10];
+        }
+        else
+            Debug.Log("GET SCORECOUNTER COMPONENT");
     }
 }

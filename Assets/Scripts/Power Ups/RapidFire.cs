@@ -7,7 +7,6 @@ public class RapidFire : PowerUp
     private Collision2D coll;
     public override void UsePower(Collision2D col)
     {
-        Debug.Log("This ran");
         transform.position = new Vector3(0, 1000);
         coll = col;
         coll.gameObject.GetComponent<CharacterMovement>().weaponCooldown = speed;
@@ -17,7 +16,6 @@ public class RapidFire : PowerUp
 
     public override void CancelPower()
     {
-        Debug.Log(coll == null);
         coll.gameObject.GetComponent<CharacterMovement>().weaponCooldown = coll.gameObject.GetComponent<CharacterMovement>().defaultWeaponCooldown;
         powerUpTimeStarted = false;
         Destroy(gameObject);

@@ -31,6 +31,7 @@ public class ShieldObj : MonoBehaviour
     {
         if(collision.transform.CompareTag("FlyProj"))
         {
+            GameManager.Instance.numShields--;
             Destroy(collision.gameObject);
             Destroy(gameObject);
         }

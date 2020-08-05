@@ -17,12 +17,15 @@ public class CharacterMovement : MonoBehaviour
     public float whiteCooldown, currentWhiteCooldown;
     public Animator anim;
     public int facing = 1;
+    public bool canJump = false;
 
     public Color stunColor;
+    public bool hasInfAmmo = false;
 
     // Start is called before the first frame update
     void Start()
     {
+        GameManager.Instance.ammoCount = maxAmmo;
         anim = GetComponentInChildren<Animator>();
         ammoCount = maxAmmo;
         UIManager.Instance.changeAmmoCount(ammoCount);
@@ -34,8 +37,8 @@ public class CharacterMovement : MonoBehaviour
     void FixedUpdate()
     {
         if(!GameManager.Instance.isRewinding)
-            move(Input.GetAxisRaw("Horizontal") * horSpeed * Time.deltaTime, (Input.GetAxisRaw("Vertical") > 0 && isGrounded));
-
+            move(Input.GetAxisRaw("Horizontal") * horSpeed * Time.deltaTime, (Input.GetAxisRaw("Vertical") > 0 && (isGrounded || canJump)));
+        anim.SetBool("move", Input.GetAxisRaw("Horizontal") != 0);
         if (Input.GetAxisRaw("Horizontal") < 0)
             facing = -1;
         else if (Input.GetAxisRaw("Horizontal") > 0)
@@ -52,9 +55,11 @@ public class CharacterMovement : MonoBehaviour
                 if (Input.GetAxisRaw("Fire1") > 0 && ammoCount > minAmmoNeed)
                 {
                     Instantiate(projectile, transform.position, Quaternion.identity);
-                    ammoCount--;
+                    //if(!hasInfAmmo)
+                        ammoCount--;
                     currentWeaponCooldown = weaponCooldown;
                     UIManager.Instance.changeAmmoCount(ammoCount);
+                    GameManager.Instance.ammoCount = ammoCount;
                 }
             }
             else
@@ -94,24 +99,24 @@ public class CharacterMovement : MonoBehaviour
             if(rb.velocity.y > 1)
             {
                 anim.SetBool("jump", true);
-                transform.rotation = Quaternion.Euler(0, 0, 0);
+                anim.transform.rotation = Quaternion.Euler(0, 0, 0);
             }
             else if(rb.velocity.y < -1)
             {
                 anim.SetBool("jump", true);
-                transform.rotation = Quaternion.Euler(0, 0, facing * -90);
+                anim.transform.rotation = Quaternion.Euler(0, 0, facing * -90);
             }
             else
             {
                 anim.SetBool("jump", false);
-                transform.rotation = Quaternion.Euler(0, 0, 0);
+                anim.transform.rotation = Quaternion.Euler(0, 0, 0);
             }
                 
         }
         else
         {
             anim.SetBool("jump", false);
-            transform.rotation = Quaternion.Euler(0, 0, 0);
+            anim.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
     }
 
@@ -119,9 +124,9 @@ public class CharacterMovement : MonoBehaviour
     {
         Instantiate(obj, shieldHolder.transform);
         ShieldObj[] shields = shieldHolder.GetComponentsInChildren<ShieldObj>();
-
+        GameManager.Instance.numShields = shields.Length;
         int index = 0;
-        float dist = .75f, shieldSpeed = 4;
+        float dist = .75f, shieldSpeed = 2;
         foreach (ShieldObj shield in shields)
         {
             shield.transform.rotation = Quaternion.identity;
@@ -156,6 +161,7 @@ public class CharacterMovement : MonoBehaviour
         if(jump)
         {
             GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpSpeed);
+            canJump = false;
         }
 
         transform.position = new Vector3(transform.position.x + hor, transform.position.y, transform.position.z);
@@ -182,6 +188,20 @@ public class CharacterMovement : MonoBehaviour
         {
             GameObject.FindGameObjectWithTag("PlayerSpawn").GetComponent<PlayerSpawn>().SpawnPlayer();
             Destroy(gameObject);
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if(collision.transform.CompareTag("Enemy"))
+        {
+            Debug.Log(collision.transform.CompareTag("Enemy") && collision.transform.GetComponent<Enemy>().isStunned && rb.velocity.y == 0);
+        }
+
+        if (collision.transform.CompareTag("Enemy") && collision.transform.GetComponent<Enemy>().isStunned && rb.velocity.y == 0)
+        {
+            Debug.Log("Hello");
+            canJump = true;
         }
     }
 }
