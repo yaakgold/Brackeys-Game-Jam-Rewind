@@ -465,8 +465,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeCounter: {fileID: 782353135}
-  ammoCount: {fileID: 224582883}
-  score: {fileID: 1490393944}
+  ammoCount: {fileID: 0}
+  score: {fileID: 0}
   livesLeft: 3
   pixleNumbers:
   - {fileID: 21300000, guid: cea07629c02160b4faf6b73e204e85b1, type: 3}
@@ -482,9 +482,16 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 5c2362853bdaaf94e86319aafae63207, type: 3}
   player: {fileID: 0}
   background: {fileID: 0}
+  backy: 0
+  backMove: 5
   backPos: {x: 0, y: 0, z: 0}
   startx: 0
   endx: 0
+  hasLife: 0
+  hasAmmo: 0
+  hasScore: 0
+  hasBack: 0
+  isTut: 0
 --- !u!4 &111993863
 Transform:
   m_ObjectHideFlags: 0
@@ -719,12 +726,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d844e5f1d02b4244aa430357ec06d44, type: 3}
---- !u!1 &224582883 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2090826209533993099, guid: 0eb6174eaa5626848a58e06ce0c777c2,
-    type: 3}
-  m_PrefabInstance: {fileID: 2090826209750121576}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &265236319
 GameObject:
   m_ObjectHideFlags: 0
@@ -6514,12 +6515,6 @@ Transform:
   m_Father: {fileID: 265236320}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1490393944 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2090826210969839408, guid: 0eb6174eaa5626848a58e06ce0c777c2,
-    type: 3}
-  m_PrefabInstance: {fileID: 2090826209750121576}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1491652678
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9935,6 +9930,8 @@ MonoBehaviour:
   enemyProj: {fileID: 7639952498653458989, guid: 52dee5680aa2e9347b63e27e2ac722a4,
     type: 3}
   player: {fileID: 4137751286200670297, guid: 6feb85bcc12dc064595d89395d629701, type: 3}
+  numShields: 0
+  ammoCount: -1
 --- !u!4 &2022602265
 Transform:
   m_ObjectHideFlags: 0
@@ -10564,6 +10561,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  starty: 0
 --- !u!1001 &2145208497
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10872,7 +10870,7 @@ PrefabInstance:
     - target: {fileID: 1824295268730957656, guid: 004a174e2bad4aa4cb3d1e0f9059a269,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -62.07422
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1824295268730957656, guid: 004a174e2bad4aa4cb3d1e0f9059a269,
         type: 3}

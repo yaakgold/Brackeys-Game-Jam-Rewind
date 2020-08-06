@@ -17,6 +17,7 @@ TagManager:
   - Background
   - AmmoCount
   - Score
+  - EndTut
   layers:
   - Default
   - TransparentFX

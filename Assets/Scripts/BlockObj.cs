@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class BlockObj : MonoBehaviour
 {
-    public bool canBeDestroyed = true;
+    public bool canBeDestroyed = true, isTut = false;
     public float startTime, secondsAlive = 0;
     public int secondsLiving, min, max;
     public SpriteRenderer spr;
@@ -49,6 +49,7 @@ public class BlockObj : MonoBehaviour
     {
         if(canBeDestroyed)
         {
+            if(!UIManager.Instance.isTut)
             secondsAlive += Time.deltaTime * (GameManager.Instance.isRewinding ? 2 : 1);
 
             if (secondsAlive >= secondsLiving)//Destroy block
@@ -61,5 +62,7 @@ public class BlockObj : MonoBehaviour
             float alpha = 1 - (secondsAlive / secondsLiving);
             spr.color = new Color(spr.color.r, spr.color.g, spr.color.b, alpha);
         }
+
+        GetComponent<BoxCollider2D>().enabled = !UIManager.Instance.isTut || isTut;
     }
 }

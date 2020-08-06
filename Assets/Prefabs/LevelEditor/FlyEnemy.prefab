@@ -118,14 +118,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDeadly: 0
-  health: 0
+  health: 5
   speed: 1
   leftGC: {fileID: 0}
   rightGC: {fileID: 0}
+  frontGC: {fileID: 0}
+  GFX: {fileID: 0}
   flipScale: {x: 0, y: 0, z: 0}
   canFly: 1
+  canCrawl: 0
   flyxSpeed: 2
   flyySpeed: 1
+  isStunned: 0
+  movementVects: []
+  startVect: {x: 0, y: 0, z: 0}
+  canStartRot: 1
+  canRot: 0
+  hitF: 0
+  isFalling: 0
+  canFinishRot: 0
+  index: 0
+  nextIndex: 0
+  fallSpeed: 1
+  pColor: {r: 0, g: 0, b: 0, a: 0}
+  fly4: {r: 0, g: 0.54509807, b: 1, a: 1}
+  fly3: {r: 1, g: 0.9990684, b: 0, a: 1}
+  fly2: {r: 1, g: 0.40392157, b: 0, a: 1}
+  fly1: {r: 0.4745098, g: 0.06666667, b: 0.18431373, a: 1}
 --- !u!61 &-2328713718989787954
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -189,4 +208,6 @@ MonoBehaviour:
   timeList: []
   isRewinding: 0
   startRewind: 0
+  isSpider: 0
   timeToRewind: 2
+  startTime: 0

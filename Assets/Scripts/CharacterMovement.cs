@@ -74,7 +74,7 @@ public class CharacterMovement : MonoBehaviour
                     currentSCooldown = 0;
                     isStunned = false;
 
-                    horSpeed *= 2;
+                    horSpeed = 5;
                 }
                 else
                 {
@@ -176,7 +176,7 @@ public class CharacterMovement : MonoBehaviour
             if (isProj && p.isWebbing)
             {
                 GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-                horSpeed *= .5f;
+                horSpeed = 2.5f;
                 isStunned = true;
             }
             else

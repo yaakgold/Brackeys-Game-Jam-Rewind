@@ -13,11 +13,11 @@ public class Shield : PowerUp
         transform.position = new Vector3(0, 1000);
         coll = col;
         coll.gameObject.GetComponent<CharacterMovement>().AddNewShield(shield);
+        CancelPower();
     }
 
     public override void CancelPower()
-    {
-        
+    {   
         Destroy(gameObject);
     }
 

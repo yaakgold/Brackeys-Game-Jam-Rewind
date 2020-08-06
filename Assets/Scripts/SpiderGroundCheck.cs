@@ -9,7 +9,9 @@ public class SpiderGroundCheck : MonoBehaviour
         if(collision.transform.CompareTag("Ground"))
         {
             if(!GetComponentInParent<Enemy>().isFalling)
+            {
                 GetComponentInParent<Enemy>().hitF = true;
+            }
         }
     }
 }

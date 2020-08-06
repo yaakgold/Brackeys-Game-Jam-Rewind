@@ -13,12 +13,14 @@ public class PowerUpSpawner : MonoBehaviour
     public GameObject power;
     public GameObject powerType;
     public float endTime = 5, startTime = 0;
+    public float starty;
 
     public float minAmmoCount;
 
     // Start is called before the first frame update
     void Start()
     {
+        starty = transform.position.y;
         foreach (GameObject prefab in prefabs)
         {
             powerProbs.Add(new PowerProbs(prefab.name, prefab, .25f));
@@ -59,18 +61,15 @@ public class PowerUpSpawner : MonoBehaviour
                 break;
         }
 
-        if (spawned && !isHome)
-            Destroy(gameObject);
-        else if (isHome)
-        {
-            GetComponent<SpriteRenderer>().enabled = false;
-            GetComponent<BoxCollider2D>().enabled = false;
-        }
+        transform.position = new Vector3(transform.position.x, starty, 0);
+        GetComponent<SpriteRenderer>().enabled = false;
+        GetComponent<BoxCollider2D>().enabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+
         if(isSelectingItem) //This is the smart pickup system
         {
             //Lower the chance of spawning a shield if the player has 4 already
@@ -115,7 +114,7 @@ public class PowerUpSpawner : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if(isHome && !power)
+        if(!power)
         {
             if (startTime < endTime)
                 startTime += Time.deltaTime;

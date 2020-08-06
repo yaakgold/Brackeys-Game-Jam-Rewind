@@ -96,10 +96,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireObj: {fileID: 4537595794159186627}
-  timeBetweenFires: 3
+  timeBetweenFires: 2
   timeSinceLastFire: 0
   timeWithFire: 0
-  timeFireLast: 3
+  timeFireLast: 2
   startBetweenFireTime: 1
   startFireTime: 0
 --- !u!1 &4537595794159186627

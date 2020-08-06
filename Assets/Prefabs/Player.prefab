@@ -202,7 +202,9 @@ MonoBehaviour:
   currentWhiteCooldown: 0
   anim: {fileID: 0}
   facing: 1
+  canJump: 0
   stunColor: {r: 0.8235294, g: 0.6, b: 1, a: 1}
+  hasInfAmmo: 0
 --- !u!61 &4137751286200670301
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -216,7 +218,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0018478036, y: -0.15525615}
+  m_Offset: {x: -0.03532967, y: -0.15525615}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -227,7 +229,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.99282134, y: 0.6922219}
+  m_Size: {x: 0.7697564, y: 0.6922219}
   m_EdgeRadius: 0
 --- !u!50 &4137751286200670302
 Rigidbody2D:
@@ -314,7 +316,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.048666388, y: -0.4511147}
+  m_Offset: {x: -0.0307661, y: -0.4511147}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -325,7 +327,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.66257423, y: 0.18343127}
+  m_Size: {x: 0.62677366, y: 0.18343127}
   m_EdgeRadius: 0
 --- !u!114 &4137751286983284455
 MonoBehaviour:

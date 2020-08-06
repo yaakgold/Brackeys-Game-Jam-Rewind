@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class UIManager : MonoBehaviour
 {
     //public GameObject mainCanvas;
     public GameObject lifeCounter;
-    public GameObject ammoCount;
-    public GameObject score;
+    public TextMeshProUGUI ammoCount;
+    public TextMeshProUGUI score;
     public int livesLeft = 3;
     public List<Sprite> pixleNumbers = new List<Sprite>();
     public CharacterMovement player;
@@ -19,7 +20,7 @@ public class UIManager : MonoBehaviour
     public Vector3 backPos;
     public float startx, endx;
 
-    public bool hasLife, hasAmmo, hasScore, hasBack;
+    public bool hasLife, hasAmmo, hasScore, hasBack, isTut = false;
 
     public static UIManager _instance;
     public static UIManager Instance { get { return _instance; } }
@@ -87,9 +88,7 @@ public class UIManager : MonoBehaviour
     {
         if (hasAmmo)
         {
-            Image[] tempAmmo = ammoCount.GetComponentsInChildren<Image>();
-            tempAmmo[0].sprite = pixleNumbers[ammo / 10];
-            tempAmmo[1].sprite = pixleNumbers[ammo % 10];
+            ammoCount.text = "" + ammo;
         }
         else
             Debug.Log("GET AMMOCOUNTER COMPONENT");
@@ -99,10 +98,7 @@ public class UIManager : MonoBehaviour
     {
         if (hasScore)
         {
-            Image[] tempScore = score.GetComponentsInChildren<Image>();
-            tempScore[0].sprite = pixleNumbers[s / 100];
-            tempScore[1].sprite = pixleNumbers[s / 10];
-            tempScore[2].sprite = pixleNumbers[s % 10];
+            score.text = "" + s;
         }
         else
             Debug.Log("GET SCORECOUNTER COMPONENT");
