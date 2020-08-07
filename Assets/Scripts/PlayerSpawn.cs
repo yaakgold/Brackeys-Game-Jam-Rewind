@@ -10,6 +10,7 @@ public class PlayerSpawn : MonoBehaviour
     {
         GameObject player = Instantiate(GameManager.Instance.player, transform.position, Quaternion.identity);
         player.GetComponent<CharacterMovement>().hasInfAmmo = isHome;
+        player.GetComponent<CharacterMovement>().ammoCount = player.GetComponent<CharacterMovement>().maxAmmo;
         GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MainCamera>().player = player;
     }
 
@@ -19,10 +20,12 @@ public class PlayerSpawn : MonoBehaviour
         
     }
 
-    public void SpawnPlayer()
+    public void SpawnPlayer(int ammoCount)
     {
         GameObject player = Instantiate(GameManager.Instance.player, transform.position, Quaternion.identity);
         player.GetComponent<CharacterMovement>().hasInfAmmo = isHome;
+        player.GetComponent<CharacterMovement>().ammoCount = ammoCount;
+        Debug.Log(ammoCount);
         GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MainCamera>().player = player;
         UIManager.Instance.LoseLife();
     }

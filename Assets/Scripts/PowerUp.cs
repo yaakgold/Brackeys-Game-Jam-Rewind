@@ -9,6 +9,7 @@ public abstract class PowerUp : MonoBehaviour
     public float speed, timeTillDeath;
     public bool powerUpTimeStarted = false;
     public int ammoInc;
+    public int score;
 
     abstract public void UsePower(Collision2D col);
     abstract public void CancelPower();

@@ -18,6 +18,7 @@ TagManager:
   - AmmoCount
   - Score
   - EndTut
+  - HighScoreText
   layers:
   - Default
   - TransparentFX

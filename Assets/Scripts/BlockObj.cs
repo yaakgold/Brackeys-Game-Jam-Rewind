@@ -65,4 +65,10 @@ public class BlockObj : MonoBehaviour
 
         GetComponent<BoxCollider2D>().enabled = !UIManager.Instance.isTut || isTut;
     }
+
+    public void changeSecond(int max)
+    {
+        secondsLiving = max;
+        secondsAlive = 0;
+    }
 }

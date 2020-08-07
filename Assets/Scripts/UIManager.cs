@@ -71,6 +71,7 @@ public class UIManager : MonoBehaviour
     public void LoseLife()
     {
         livesLeft--;
+        GameManager.Instance.AddToScore(-10);
         if(livesLeft!=0)
         {
             if (hasLife)
@@ -80,6 +81,7 @@ public class UIManager : MonoBehaviour
         }
         else
         {
+            GameManager.Instance.AddToScore(-100);
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }

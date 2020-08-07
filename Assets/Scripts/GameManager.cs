@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public GameObject enemyProj;
     public GameObject player;
     public int numShields = 0, ammoCount = -1;
+    public int totalScore;
 
     public static GameManager _instance;
     public static GameManager Instance { get { return _instance; } }
@@ -30,7 +31,14 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        totalScore = BetweenLevels.Instance.score;
+        UIManager.Instance.changeScore(totalScore);
+    }
+
+    public void AddToScore(int s)
+    {
+        totalScore += s;
+        UIManager.Instance.changeScore(totalScore);
     }
 
     // Update is called once per frame

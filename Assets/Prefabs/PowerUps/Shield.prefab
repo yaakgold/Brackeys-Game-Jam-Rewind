@@ -52,6 +52,7 @@ MonoBehaviour:
   timeTillDeath: 0
   powerUpTimeStarted: 0
   ammoInc: 0
+  score: 50
   shield: {fileID: 4902658746104063066, guid: 173734b82ce15fa40a91ca5ea9bf3681, type: 3}
 --- !u!212 &9211280154753153083
 SpriteRenderer:

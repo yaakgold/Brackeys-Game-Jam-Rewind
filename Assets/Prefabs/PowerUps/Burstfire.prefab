@@ -52,6 +52,7 @@ MonoBehaviour:
   timeTillDeath: 20
   powerUpTimeStarted: 0
   ammoInc: 0
+  score: 50
   projectile: {fileID: 7835398677333502561, guid: de8a5be501f4723408c7a606a998b002,
     type: 3}
   defaultProj: {fileID: 7639952498653458989, guid: 60bc277232226f44ca87cf8cf6fc7c2e,

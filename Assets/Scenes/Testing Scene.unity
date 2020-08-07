@@ -377,7 +377,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeCounter: {fileID: 1345189569}
-  ammoCount: {fileID: 1200498057}
+  ammoCount: {fileID: 0}
   score: {fileID: 0}
   livesLeft: 3
   pixleNumbers:
@@ -5275,12 +5275,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1197276527}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1200498057 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7149390368821020498, guid: 0eb6174eaa5626848a58e06ce0c777c2,
-    type: 3}
-  m_PrefabInstance: {fileID: 652951533}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1211542749 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7754531747117317459, guid: cc1d919a7863c5d47ace56fb24f58067,
@@ -9672,6 +9666,7 @@ MonoBehaviour:
   player: {fileID: 4137751286200670297, guid: 6feb85bcc12dc064595d89395d629701, type: 3}
   numShields: 0
   ammoCount: -1
+  totalScore: 0
 --- !u!4 &2022602265
 Transform:
   m_ObjectHideFlags: 0

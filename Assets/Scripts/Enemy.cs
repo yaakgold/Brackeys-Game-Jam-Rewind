@@ -242,36 +242,41 @@ public class Enemy : MonoBehaviour
         if(health == 4)
         {
             GetComponent<SpriteRenderer>().color = fly4;
+            GameManager.Instance.AddToScore(10);
             isStunned = true;
         }
         else if(health == 3)
         {
             GetComponent<SpriteRenderer>().color = fly3;
+            GameManager.Instance.AddToScore(10);
             isStunned = true;
         }
         else if (health == 2)
         {
             GetComponent<SpriteRenderer>().color = fly2;
+            GameManager.Instance.AddToScore(10);
             isStunned = true;
         }
         else if (health == 1)
         {
             GetComponent<SpriteRenderer>().color = fly1;
+            GameManager.Instance.AddToScore(10);
             isStunned = true;
         }
         else if (health == 0)
         {
+            GameManager.Instance.AddToScore(10);
             Destroy(gameObject);
         }
 
-        //All bugs
+        //All other bugs
         if (health <= 0)
         {
             isStunned = true;
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if(collision.gameObject.CompareTag("MainCamera"))
         {

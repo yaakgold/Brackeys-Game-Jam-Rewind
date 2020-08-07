@@ -52,6 +52,7 @@ MonoBehaviour:
   timeTillDeath: 0
   powerUpTimeStarted: 0
   ammoInc: 5
+  score: 50
 --- !u!212 &9211280154753153083
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -27,7 +27,6 @@ public class CharacterMovement : MonoBehaviour
     {
         GameManager.Instance.ammoCount = maxAmmo;
         anim = GetComponentInChildren<Animator>();
-        ammoCount = maxAmmo;
         UIManager.Instance.changeAmmoCount(ammoCount);
         rb = GetComponent<Rigidbody2D>();
         defaultWeaponCooldown = currentWeaponCooldown = weaponCooldown;
@@ -186,7 +185,7 @@ public class CharacterMovement : MonoBehaviour
         }
         else if(collision.gameObject.CompareTag("BottomWall") || collision.gameObject.CompareTag("FireTrap"))
         {
-            GameObject.FindGameObjectWithTag("PlayerSpawn").GetComponent<PlayerSpawn>().SpawnPlayer();
+            GameObject.FindGameObjectWithTag("PlayerSpawn").GetComponent<PlayerSpawn>().SpawnPlayer(ammoCount);
             Destroy(gameObject);
         }
     }
